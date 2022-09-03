@@ -1,0 +1,39 @@
+<view style="width: {{containerRes.width}}px; height: {{containerRes.height}}px;" class="drag-container">
+  <view
+    wx:for="{{dragImgList}}" 
+    wx:key="index"
+    style="transform: translate({{index === currentIndex ? tranX : item.tranX}}px, {{index === currentIndex ? tranY : item.tranY}}px); z-index: {{index === currentIndex ? 10 : 1}}; width: {{previewSize}}px; height: {{previewSize}}px;"
+    class="drag-item drag-item-transition"
+    mark:index="{{index}}"
+    mark:key="{{item.key}}"
+    catch:longpress="longPress"
+    catch:touchmove="touchMove"
+    catch:touchend="touchEnd"
+  >
+    <image class="drag-item-img" src="{{item.src}}"/>
+    <!-- 删除图标 -->
+    <view catch:tap="deleteImg" mark:key="{{item.key}}" class="drag-item-delete">
+      <view class="drag-item-delete_slot">
+        <slot name="delete"></slot>
+      </view>
+      <view class="drag-item-delete_default">
+        <text>×</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 上传图片 -->
+  <view
+    bindtap="uploadImage"
+    class="drag-item drag-upload"
+    hidden="{{dragImgList.length >= maxCount}}"
+    style="transform: translate({{uploadPosition.tranX}}px, {{uploadPosition.tranY}}px); width: {{previewSize}}px; height: {{previewSize}}px;"
+  >
+    <view class="drag-upload_solt">
+      <slot name="upload"></slot>
+    </view>
+    <view class="drag-upload_default">
+      <text>+</text>
+    </view>
+  </view>
+</view>

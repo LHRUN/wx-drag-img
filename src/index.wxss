@@ -1,0 +1,51 @@
+.drag-container {
+  position: relative;
+}
+
+.drag-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.drag-item-transition {
+  transition: transform 0.1s
+}
+.drag-item-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 删除 */
+.drag-item-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.drag-item-delete .drag-item-delete_slot:empty + .drag-item-delete_default {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  line-height: 16px;
+  justify-content: center;
+  background-color: gray;
+  border-bottom-left-radius: 10px;
+}
+.drag-item-delete .drag-item-delete_default {
+  display: none;
+}
+
+/* 上传 */
+.drag-upload .drag-upload_solt:empty + .drag-upload_default {
+  display: block;
+  border: 2px dashed;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 70px;
+  font-weight: bold;
+  line-height: 100%;
+}
+.drag-upload .drag-upload_default {
+  display: none;
+}
