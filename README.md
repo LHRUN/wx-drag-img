@@ -1,5 +1,5 @@
 ##  WX-DRAG-IMG
-wx-drag-img是基于微信小程序原生语法的图片拖拽排序组件
+wx-drag-img是基于微信小程序原生语法的图片拖拽排序组件  
 ![](https://img-blog.csdnimg.cn/c1e580964b2447f7b0795c0353c50513.gif#pic_center)
 
 ### 使用组件
