@@ -1,7 +1,7 @@
 <view style="width: {{containerRes.width}}px; height: {{containerRes.height}}px;" class="drag-container">
   <view
-    wx:for="{{dragImgList}}" 
-    wx:key="index"
+    wx:for="{{dragImgList}}"
+    wx:key="id"
     style="transform: translate({{index === currentIndex ? tranX : item.tranX}}px, {{index === currentIndex ? tranY : item.tranY}}px); z-index: {{index === currentIndex ? 10 : 1}}; width: {{previewSize}}px; height: {{previewSize}}px;"
     class="drag-item drag-item-transition"
     mark:index="{{index}}"
@@ -13,12 +13,7 @@
     <image class="drag-item-img" src="{{item.src}}"/>
     <!-- 删除图标 -->
     <view catch:tap="deleteImg" mark:key="{{item.key}}" class="drag-item-delete">
-      <view class="drag-item-delete_slot">
-        <slot name="delete"></slot>
-      </view>
-      <view class="drag-item-delete_default">
-        <text>×</text>
-      </view>
+      <view class="drag-item-delete_default" style="{{deleteStyle}}">x</view>
     </view>
   </view>
 

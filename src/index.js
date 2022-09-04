@@ -36,12 +36,23 @@ Component({
     gap: {
       type: Number,
       value: 9,
+    },
+    // 删除样式
+    deleteStyle: {
+      type: String,
+      value: '',
     }
   },
   data: {
     /**
      * 拖拽图片列表
-     * 数据结构 Array<{ src: string, key: number, tranX: number, tranY: number }>
+     * {
+     *  src: string, // 图片路径
+     *  key: number, // 
+     *  id: number, // for循环遍历使用, 不会改变, 创建时自增id
+     *  tranX: number, // x轴位移距离
+     *  tranY: number, // y轴位移距离
+     * }[]
      */
     dragImgList: [],
     containerRes: {
@@ -84,7 +95,7 @@ Component({
       this.setData({
         currentIndex: index,
         tranX: pageX - previewSize / 2 - left,
-        tranY: pageY - previewSize / 2 - top
+        tranY: pageY - previewSize / 2 - top,
       });
     },
 
@@ -151,7 +162,7 @@ Component({
     },
 
     /**
-     * 获取数组的位移位置
+     * 计算数组的位移位置
      * @param list 拖拽图片数组
      */
     getListPosition(list) {
@@ -181,6 +192,7 @@ Component({
 
     /**
      * updateEvent
+     * @describe 上传删除拖拽后触发事件把列表数据发给页面
      */
     updateEvent(dragImgList) {
       const list = [...dragImgList].sort((a, b) => a.key - b.key).map((item) => item.src);
@@ -213,6 +225,7 @@ Component({
 
     /**
      * 改变图片数量后获取容器宽高
+     * @parma listLength 数组长度
      */
     getContainerRect(listLength) {
       const { columns, previewSize, maxCount, gap } = this.data;
@@ -226,19 +239,26 @@ Component({
 
     /**
      * 根据图片列表生成拖拽列表数据结构
+     * @param list 图片src列表
+     * @param init 是否是初始化
      */
-    getDragImgList(list, isAll = true) {
+     getDragImgList(list, init = true) {
       let { dragImgList, previewSize, columns, gap } = this.data;
-      return list.map((item, index) => ({
-        tranX: (previewSize + gap) * (((isAll ? 0 : dragImgList.length) + index) % columns),
-        tranY: Math.floor(((isAll ? 0 : dragImgList.length) + index) / columns) * (previewSize + gap),
-        src: item,
-        key: (isAll ? 0 : dragImgList.length) + index
-      }));
+      return list.map((item, index) => {
+        const i = (init ? 0 : dragImgList.length) + index;
+        return {
+          tranX: (previewSize + gap) * (i % columns),
+          tranY: Math.floor(i / columns) * (previewSize + gap),
+          src: item,
+          id: i,
+          key: i,
+        };
+      });
     },
 
     /**
-     * 修改上传图标位置
+     * 修改上传区域位置
+     * @param listLength 数组长度
      */
     setUploaPosition(listLength) {
       const { previewSize, columns, gap } = this.data;
@@ -260,9 +280,11 @@ Component({
     deleteImg(e) {
       const key = e.mark.key;
       const list = this.data.dragImgList.filter((item) => item.key !== key);
-      list.forEach((item) => item.key > key && item.key--);
+      list.forEach((item) => {
+        item.key > key && item.key--;
+      });
       this.getListPosition(list);
       this.setUploaPosition(list.length);
-    }
+    },
   }
 })

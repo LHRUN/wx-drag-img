@@ -1,6 +1,6 @@
 {
   "name": "wx-drag-img",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "微信小程序图片上传拖拽排序组件",
   "miniprogram": "src",
   "main": "index.js",
