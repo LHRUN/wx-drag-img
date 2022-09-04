@@ -19,7 +19,6 @@ wx-drag-img是基于微信小程序原生语法的图片拖拽排序组件
     defaultImgList="{{imgList}}"
     bind:updateImageList="updateImageList"
   >
-    <view slot="delete" >...</view>
     <view slot="upload" >...</view>
   </WxDragImg>
   ```
