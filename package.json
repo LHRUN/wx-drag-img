@@ -2,7 +2,7 @@
   "name": "wx-drag-img",
   "version": "0.1.2",
   "description": "微信小程序图片上传拖拽排序组件",
-  "miniprogram": "src",
+  "miniprogram": "miniprogram_dist",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
