@@ -11,14 +11,29 @@ const globalPaths = {
 	wxss: [`${src}/**/*.wxss`],
 	json: [`${src}/**/*.json`],
 }
-const dist = './miniprogram_dist'
-  
-const clear = async () => await deleteAsync(dist);
+
+const BUILD_PATH = {
+	dist: './miniprogram_dist',
+	example: './example/wx-drag-img'
+}
+
+// 编译输出路径
+let buildPath = BUILD_PATH.dist
+
+/**
+ * 切换编译输出路径
+ * @param {*} path 
+ */
+const toggleBuildPath = async () => {
+	buildPath = BUILD_PATH.example
+}
+
+const clear = async () => await deleteAsync(buildPath);
 
 const js = () => gulp
 	.src(globalPaths.js)
 	.pipe(terser())
-	.pipe(gulp.dest(dist))
+	.pipe(gulp.dest(buildPath))
 
 const wxss = () => gulp
 	.src(globalPaths.wxss)
@@ -28,7 +43,7 @@ const wxss = () => gulp
 			wxss: 'css',
 		},
 	}))
-	.pipe(gulp.dest(dist))
+	.pipe(gulp.dest(buildPath))
 
 const wxml = () => gulp
 	.src(globalPaths.wxml)
@@ -38,7 +53,7 @@ const wxml = () => gulp
 			wxml: 'xml',
 		},
 	}))
-	.pipe(gulp.dest(dist))
+	.pipe(gulp.dest(buildPath))
 
 const json = () => gulp
 	.src(globalPaths.json)
@@ -46,7 +61,8 @@ const json = () => gulp
 		type: 'minify',
 		preserveComments: true,
 	}))
-	.pipe(gulp.dest(dist))
+	.pipe(gulp.dest(buildPath))
 
+export const example = gulp.series(toggleBuildPath, clear, gulp.parallel(js, wxss, wxml, json))
 export const build = gulp.series(clear, gulp.parallel(js, wxss, wxml, json))
 
