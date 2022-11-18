@@ -1,5 +1,5 @@
 import gulp from 'gulp';
-import del from 'del';
+import { deleteAsync } from 'del';
 import terser from 'gulp-terser';
 import prettyData from 'gulp-pretty-data';
 
@@ -13,7 +13,7 @@ const globalPaths = {
 }
 const dist = './miniprogram_dist'
   
-const clear = async () => await del(dist);
+const clear = async () => await deleteAsync(dist);
 
 const js = () => gulp
 	.src(globalPaths.js)
