@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "wxDragImg": "../app"
+    "wxDragImg": "../wx-drag-img"
   }
 }
