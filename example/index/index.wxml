@@ -1,0 +1,12 @@
+<view>
+	<wxDragImg
+    defaultImgList="{{imgList}}"
+		previewSize="{{100}}"
+		maxCount="{{9}}"
+		columns="{{3}}"
+		gap="{{9}}"
+    bind:updateImageList="updateImageList"
+  >
+    <view slot="upload" >upload</view>
+  </wxDragImg>
+</view>
