@@ -2,3 +2,5 @@ example
 pnpm-lock.yaml
 gulpfile.js
 node_modules
+__test__
+coverage
